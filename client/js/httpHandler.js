@@ -11,13 +11,28 @@
       type: 'GET',
       url: serverUrl,
       success: (data) => {
-        console.log(data);
         SwimTeam.move(data);
+      },
+      complete: () => {
+        setTimeout(getSwimCommand, 10);
       }
     })
   }
 
-  setInterval(getSwimCommand, 1000);
+  setTimeout(getSwimCommand, 0);
+
+  const getBackgroundImage = () => {
+    $.ajax({
+      type: 'GET',
+      url: `${serverUrl}/background.jpg`,
+      success: (data) => {
+        console.log('Hello! Your image was returned!');
+
+      }
+    })
+  }
+
+  // getBackgroundImage();
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!

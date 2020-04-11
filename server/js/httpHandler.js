@@ -21,11 +21,29 @@ let messageQueue = null;
 
 module.exports.router = (req, res, next = ()=>{}) => {
   console.log('Serving request type ' + req.method + ' for url ' + req.url);
-  res.writeHead(200, headers);
-  if (req.method === 'GET'){
-    res.end(messagesQueue.dequeue());
-  } else {
+  res.writeHead(404, headers);
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200, headers);
     res.end();
+    next();
   }
-  next(); // invoke next() at the end of a request to help with testing!
+
+  if (req.method === 'GET'){
+    if (req.url === '/'){
+      res.writeHead(200, headers);
+      res.end(messagesQueue.dequeue());
+    } else if (req.url === '/background.jpg'){
+      fs.readFile(module.exports.backgroundImageFile, (err, data) => {
+        if (err) {
+          res.writeHead(404, headers);
+        } else {
+          res.write(200, headers);
+          res.write(data, 'binary');
+        }
+        res.end();
+        next();
+      })
+    }
+  }
 };
