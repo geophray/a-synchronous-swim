@@ -17,7 +17,7 @@
     })
   }
 
-  // setInterval(getSwimCommand, 1000);
+  setInterval(getSwimCommand, 1000);
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
