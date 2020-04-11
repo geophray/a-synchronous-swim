@@ -12,9 +12,12 @@
       url: serverUrl,
       success: (data) => {
         console.log(data);
+        SwimTeam.move(data);
       }
     })
   }
+
+  // setInterval(getSwimCommand, 1000);
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
