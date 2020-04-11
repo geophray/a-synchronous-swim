@@ -38,7 +38,7 @@ module.exports.router = (req, res, next = ()=>{}) => {
         if (err) {
           res.writeHead(404, headers);
         } else {
-          res.write(200, headers);
+          res.writeHead(200, headers);
           res.write(data, 'binary');
         }
         res.end();
