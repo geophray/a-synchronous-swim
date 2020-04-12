@@ -14,23 +14,23 @@
         SwimTeam.move(data);
       },
       complete: () => {
-        // setTimeout(getSwimCommand, 10);
+        setTimeout(getSwimCommand, 10);
       }
     })
   }
 
   setTimeout(getSwimCommand, 0);
 
-  const getBackgroundImage = () => {
-    $.ajax({
-      type: 'GET',
-      url: `${serverUrl}/background.jpg`,
-      success: (data) => {
-        console.log('Hello! Your image was returned!');
+  // const getBackgroundImage = () => {
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: `${serverUrl}/background.jpg`,
+  //     success: (data) => {
+  //       console.log('Hello! Your image was returned!');
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
   // getBackgroundImage();
 

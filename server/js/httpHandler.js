@@ -49,12 +49,13 @@ module.exports.router = (req, res, next = ()=>{}) => {
 
   if (req.method === 'POST') {
     if (req.url === '/background.jpg') {
-      var dataFile = Buffer.alloc(0);
+      var fileData = Buffer.alloc(0);
       req.on('data', (chunk) => {
-        dataFile = Buffer.concat([dataFile, chunk]);
+        fileData = Buffer.concat([fileData, chunk]);
       });
       req.on('end', () => {
-        fs.writeFile(module.exports.backgroundImageFile, dataFile, (err) => {
+        var file = multipart.getFile(fileData);
+        fs.writeFile(module.exports.backgroundImageFile, file.data, (err) => {
           res.writeHead(err ? 400 : 201, headers);
           res.end();
           next();
