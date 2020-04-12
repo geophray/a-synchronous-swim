@@ -20,7 +20,7 @@ let messageQueue = null;
 // };
 
 module.exports.router = (req, res, next = ()=>{}) => {
-  console.log('Serving request type ' + req.method + ' for url ' + req.url);
+  // console.log('Serving request type ' + req.method + ' for url ' + req.url);
   res.writeHead(404, headers);
 
   if (req.method === 'OPTIONS') {
@@ -43,7 +43,23 @@ module.exports.router = (req, res, next = ()=>{}) => {
         }
         res.end();
         next();
-      })
+      });
+    }
+  }
+
+  if (req.method === 'POST') {
+    if (req.url === '/background.jpg') {
+      var dataFile = Buffer.alloc(0);
+      req.on('data', (chunk) => {
+        dataFile = Buffer.concat([dataFile, chunk]);
+      });
+      req.on('end', () => {
+        fs.writeFile(module.exports.backgroundImageFile, dataFile, (err) => {
+          res.writeHead(err ? 400 : 201, headers);
+          res.end();
+          next();
+        });
+      });
     }
   }
 };
